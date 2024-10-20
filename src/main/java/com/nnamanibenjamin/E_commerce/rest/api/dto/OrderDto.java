@@ -14,9 +14,9 @@ public class OrderDto {
     private Long userId;
     @NotBlank(message = "Address is required")
     private String address;
-    @NotBlank(message = "Phone number is required")
+    @NotBlank(message = "Phone name is required")
     private String phoneNumber;
-    private LocalDateTime createdAt;
     private Order.OrderStatus status;
-    private List<OrderItemDto> items;
+    private LocalDateTime createdAt;
+    private List<OrderItemDto> orderItems;
 }

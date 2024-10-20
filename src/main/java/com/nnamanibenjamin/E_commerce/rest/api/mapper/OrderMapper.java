@@ -13,7 +13,7 @@ import com.nnamanibenjamin.E_commerce.rest.api.model.OrderItem;
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
     @Mapping(target = "userId", source = "user.id")
-    @Mapping(target = "orderItems", source = "items") 
+    @Mapping(target = "orderItems", source = "items")
      OrderDto toDto(Order order);
 
      @Mapping(target = "user.id", source = "userId")

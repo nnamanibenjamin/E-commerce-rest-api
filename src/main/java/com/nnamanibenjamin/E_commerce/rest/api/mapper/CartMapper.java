@@ -13,7 +13,7 @@ public interface CartMapper {
     @Mapping(target = "userId", source = "user.id") 
     CartDto toDto(Cart Cart);
 
-    @Mapping(target = "user.id", source = "userI d")
+    @Mapping(target = "user.id", source = "userId")
     Cart toEntity(CartDto cartDto);
 
     @Mapping(target = "productId", source = "product.id")

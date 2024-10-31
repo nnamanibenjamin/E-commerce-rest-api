@@ -13,7 +13,6 @@ public class CommentDto {
     @Min(value = 1, message = "Score must be greater than or equal to 1")   
     @Max(value = 5, message = "Score must be less than or equal to 5")
     private Integer score;
-    private Long productId;
     private Long userId;
 
 }

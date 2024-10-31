@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nnamanibenjamin.E_commerce.rest.api.dto.ProductDto;
 import com.nnamanibenjamin.E_commerce.rest.api.dto.ProductListDto;
-import com.nnamanibenjamin.E_commerce.rest.api.exception.ResourceNotFoundException;
+import com.nnamanibenjamin.E_commerce.rest.api.exception.InsufficientStockException;
 import com.nnamanibenjamin.E_commerce.rest.api.mapper.ProductMapper;
 import com.nnamanibenjamin.E_commerce.rest.api.model.Product;
 import com.nnamanibenjamin.E_commerce.rest.api.repository.ProductRepository;
@@ -45,7 +45,7 @@ public class ProductService {
     @Transactional
     public ProductDto updateProduct(Long id, ProductDto productDto, MultipartFile image) throws IOException{
         Product existingProduct = productRepository.findById(id).orElseThrow((
-            () -> new ResourceNotFoundException("Product not found")
+            () -> new InsufficientStockException("Product not found")
         ));
         existingProduct.setName(productDto.getName());
         existingProduct.setDescription(productDto.getDescription());
@@ -63,14 +63,14 @@ public class ProductService {
     @Transactional
     public void deleteProduct(Long id) {
         if(!productRepository.existsById(id)) {
-            throw new ResourceNotFoundException("Product not found");
+            throw new InsufficientStockException("Product not found");
         } 
             productRepository.deleteById(id);
         
     }
     public ProductDto getProductById(Long id) {
         Product product = productRepository.findById(id).orElseThrow(
-            () -> new ResourceNotFoundException("Product not found")
+            () -> new InsufficientStockException("Product not found")
         );
         return productMapper.toDto(product);
     }

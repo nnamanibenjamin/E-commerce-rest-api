@@ -6,6 +6,8 @@ import org.mapstruct.Mapping;
 import com.nnamanibenjamin.E_commerce.rest.api.dto.CommentDto;
 import com.nnamanibenjamin.E_commerce.rest.api.model.Comment;
 
+
+
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
     @Mapping(target = "userId", source = "user.id")

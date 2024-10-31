@@ -1,7 +1,7 @@
 package com.nnamanibenjamin.E_commerce.rest.api.services;
 
 import com.nnamanibenjamin.E_commerce.rest.api.dto.ChangePasswordRequest;
-import com.nnamanibenjamin.E_commerce.rest.api.exception.ResourceNotFoundException;
+import com.nnamanibenjamin.E_commerce.rest.api.exception.InsufficientStockException;
 import com.nnamanibenjamin.E_commerce.rest.api.model.User;
 import com.nnamanibenjamin.E_commerce.rest.api.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class UserService {
     }  
     
     public User getUserByEmail(String email){
-        return userRepository.findByEmail(email).orElseThrow(()-> new  ResourceNotFoundException("User not found"));  
+        return userRepository.findByEmail(email).orElseThrow(()-> new  InsufficientStockException("User not found"));  
     }   
 
     public void changePassword(String email, ChangePasswordRequest request){

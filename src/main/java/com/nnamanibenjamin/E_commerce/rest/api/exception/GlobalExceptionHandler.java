@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import com.nnamanibenjamin.E_commerce.rest.api.dto.ErrorDetails;
 
 @ControllerAdvice
-public class GlobalExceptionHandler extends RuntimeException {
+public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException( ResourceNotFoundException ex, WebRequest request) {
 
@@ -19,7 +19,7 @@ public class GlobalExceptionHandler extends RuntimeException {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler(InsufficientStockException.class)
     public ResponseEntity<?> handleInsufficientStockException( InsufficientStockException ex, WebRequest request) {
 
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));

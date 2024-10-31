@@ -3,6 +3,7 @@ package com.nnamanibenjamin.E_commerce.rest.api.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nnamanibenjamin.E_commerce.rest.api.dto.ChangePasswordRequest;
+import com.nnamanibenjamin.E_commerce.rest.api.dto.EmailConfirmationRequest;
 import com.nnamanibenjamin.E_commerce.rest.api.dto.LoginRequest;
+import com.nnamanibenjamin.E_commerce.rest.api.exception.ResourceNotFoundException;
 import com.nnamanibenjamin.E_commerce.rest.api.model.User;
 import com.nnamanibenjamin.E_commerce.rest.api.services.JwtServices;
 import com.nnamanibenjamin.E_commerce.rest.api.services.UserService;
@@ -50,5 +53,17 @@ public class AuthController {
         String email = authentication.getName();
         userService.changePassword(email, request);
         return ResponseEntity.ok("Password changed successfully");
+    }
+
+    @PostMapping("/confirm-email")
+    public ResponseEntity<?> confrimEmail(@RequestBody EmailConfirmationRequest request){
+        try {
+            userService.confirmEmail(request.getEmail(), request.getConfirmationCode());
+            return ResponseEntity.ok("Email confirmed successfully");
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.badRequest().body("Invalid confirmation code");
+        }catch(ResourceNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 }

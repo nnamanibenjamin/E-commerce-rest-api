@@ -48,8 +48,11 @@ public class OrderService {
     
     @Transactional
     public OrderDto createOrder(Long userId, String address, String phoneNumber) {
-       User user = userRepository.findById(userId).orElseThrow(()-> new               ResourceNotFoundException("User not found")); 
+       User user = userRepository.findById(userId).orElseThrow(()-> new        ResourceNotFoundException("User not found")); 
 
+       if(!user.isEmailConfirmation()){
+        throw new IllegalStateException("Email not comfirmed. please comfirm email before placing order");
+       }
        CartDto cartDto = cartService.getCart(userId);
        Cart cart = cartMapper.toEntity(cartDto);
 

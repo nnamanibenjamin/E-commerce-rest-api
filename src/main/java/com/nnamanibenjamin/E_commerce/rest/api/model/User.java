@@ -43,6 +43,9 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
+    private boolean emailConfirmation;
+    private String confirmationCode;
+    
     @java.lang.Override
     public java.util.Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));

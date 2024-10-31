@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -75,8 +77,8 @@ public class ProductService {
         return productMapper.toDto(product);
     }
     
-    public List<ProductListDto> getAllProducts() {
-        return productRepository.findAllWithoutComments(); // fix later
+    public Page<ProductListDto> getAllProducts(Pageable pageable) {
+        return productRepository.findAllWithoutComments(pageable); // fix later
     } 
 
     private String saveImage(MultipartFile image) throws IOException {
